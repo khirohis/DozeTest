@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <import type="net.hogelab.dozetest.MainActivityViewModel" />
+
+        <variable
+            name="viewModel"
+            type="MainActivityViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".MainActivity"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/text_wifilock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="WiFi Lock:"
+                />
+            <CheckBox
+                android:id="@+id/checkbox_wifilock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".MainActivity"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/text_periodic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Periodic Ping:"
+                />
+            <CheckBox
+                android:id="@+id/checkbox_periodic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".MainActivity"
+            android:orientation="horizontal"
+            >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start"
+                android:onClick="@{() -> viewModel.onClickStart()}"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_log"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/checkbox_periodic"
+            android:text="@{viewModel.logText}"
+            />
+
+    </LinearLayout>
+</layout>
