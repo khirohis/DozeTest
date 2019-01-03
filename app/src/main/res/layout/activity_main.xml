@@ -72,6 +72,20 @@
                 android:text="Start"
                 android:onClick="@{() -> viewModel.onClickStart()}"
                 />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Stop"
+                android:onClick="@{() -> viewModel.onClickStop()}"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Battery"
+                android:onClick="@{() -> viewModel.onClickBattery()}"
+                />
         </LinearLayout>
 
         <TextView
