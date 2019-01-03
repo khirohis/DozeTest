@@ -37,6 +37,9 @@ import java.net.URL;
 public class PreventDozeService extends Service {
     private static final String TAG = PreventDozeService.class.getSimpleName();
 
+    private static final int NOTIFICATION_ID = 1000;
+    private static final long DELAY_MILLIS = 60 * 1000;
+
     public static final String COMMAND = "command";
     public static final int COMMAND_NOP = 0;
     public static final int COMMAND_START = 1;
@@ -188,7 +191,7 @@ public class PreventDozeService extends Service {
         startNotification();
 
         mHandler.removeCallbacks(mPeriodicTask);
-        mHandler.postDelayed(mPeriodicTask, 5000);
+        mHandler.postDelayed(mPeriodicTask, DELAY_MILLIS);
     }
 
     private void stopPrevent() {
@@ -206,7 +209,7 @@ public class PreventDozeService extends Service {
 
 
     private void onPeriodicTask() {
-//        Log.d(TAG, "onPeriodicTask");
+        Log.d(TAG, "onPeriodicTask");
 
         Thread pingTask = new Thread(new Runnable() {
             @Override
@@ -216,7 +219,7 @@ public class PreventDozeService extends Service {
         });
         pingTask.start();
 
-        mHandler.postDelayed(mPeriodicTask, 5000);
+        mHandler.postDelayed(mPeriodicTask, DELAY_MILLIS);
     }
 
 
@@ -245,6 +248,7 @@ public class PreventDozeService extends Service {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "channelId");
         builder.setWhen(System.currentTimeMillis())
                 .setShowWhen(true)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setUsesChronometer(true);
         android.support.v4.media.app.NotificationCompat.MediaStyle mediaStyle = new android.support.v4.media.app.NotificationCompat.MediaStyle();
         mediaStyle.setMediaSession(mSessionToken);
@@ -257,11 +261,13 @@ public class PreventDozeService extends Service {
                 .setContentText(description.getSubtitle());
 
         Notification notification = builder.build();
-        startForeground(1000, notification);
+
+        startForeground(NOTIFICATION_ID, notification);
+        mNotificationManager.notify(NOTIFICATION_ID, notification);
     }
 
     private void stopNotification() {
-        mNotificationManager.cancel(1000);
+        mNotificationManager.cancel(NOTIFICATION_ID);
         mController.unregisterCallback(mMediaControllerCallback);
     }
 
