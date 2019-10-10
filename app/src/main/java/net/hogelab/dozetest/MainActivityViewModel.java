@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -78,6 +79,11 @@ public class MainActivityViewModel extends BaseObservable {
         }
     }
 
+    public void onClickTest() {
+        AsyncTask task = new ParentAsyncTask();
+        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
 
     private void onPeriodicTask() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -89,5 +95,24 @@ public class MainActivityViewModel extends BaseObservable {
         }
 
         handler.postDelayed(periodicTask, 1000);
+    }
+
+
+
+    // TEST
+    private static class ParentAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        public Void doInBackground(Void ... params) {
+            return null;
+        }
+    }
+
+    private static class ChildAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        public Void doInBackground(Void ... params) {
+            return null;
+        }
     }
 }
