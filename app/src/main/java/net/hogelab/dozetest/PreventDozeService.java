@@ -245,11 +245,15 @@ public class PreventDozeService extends Service {
     private void startNotification() {
         mController.registerCallback(mMediaControllerCallback);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "channelId");
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                this,
+                DozeTestApplication.NOTIFICATION_CHANNEL_ID);
+
         builder.setWhen(System.currentTimeMillis())
                 .setShowWhen(true)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setUsesChronometer(true);
+
         android.support.v4.media.app.NotificationCompat.MediaStyle mediaStyle = new android.support.v4.media.app.NotificationCompat.MediaStyle();
         mediaStyle.setMediaSession(mSessionToken);
 //                .setShowActionsInCompactView(0, 1);
